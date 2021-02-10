@@ -7,7 +7,7 @@
         <tr>
           <th title="nozzle">Noz</th>
           <th title="number">Num</th>
-          <!-- <th title="radius">Throw(m)</th> -->
+          <th class="is-hidden-mobile" title="radius">Throw(m)</th>
           <th title="required flow">Flow</th>
         </tr>
       </thead>
@@ -20,13 +20,13 @@
         <tr>
           <th>Total</th>
           <th></th>
-          <!-- <th></th> -->
+          <th class="is-hidden-mobile"></th>
           <th>{{ formattedTotal }}</th>
         </tr>
         <tr>
           <th >Stations</th>
           <th></th>
-          <!-- <th></th> -->
+          <th class="is-hidden-mobile"></th>
           <th>{{ stations }}</th>
         </tr>
       </tbody>

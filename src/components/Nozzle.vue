@@ -6,7 +6,7 @@
           <td>
           <number-input type="number" name="count" id="count" v-model="count" @changeCount="updateCount" :value="count" ref="input"/>
           </td>
-          <!-- <td>{{ nozzleThrow }}</td> -->
+          <td class="is-hidden-mobile" >{{ nozzleThrow }}</td>
           <td>{{ subTotal }} </td>
         </tr>
         <!-- Totals -->
@@ -60,6 +60,9 @@ import { bus } from '../main';
       })
     },
 
+    mounted() {
+      // console.log(this.$refs.input);
+    },
 
   }
 </script>
