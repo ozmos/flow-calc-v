@@ -5,47 +5,75 @@
     <p class="menu-label">
       General
     </p>
-    <ul class="menu-list">
-      <li><a>Dashboard</a></li>
-      <li><a>Customers</a></li>
-    </ul>
-    <p class="menu-label">
-      Administration
-    </p>
-    <ul class="menu-list">
-      <li><a>Team Settings</a></li>
-      <li>
-        <a class="is-active">Manage Your Team</a>
-        <ul>
-          <li><a>Members</a></li>
-          <li><a>Plugins</a></li>
-          <li><a>Add a member</a></li>
-        </ul>
-      </li>
-      <li><a>Invitations</a></li>
-      <li><a>Cloud Storage Environment Settings</a></li>
-      <li><a>Authentication</a></li>
-    </ul>
-    <p class="menu-label">
-      Transactions
-    </p>
-    <ul class="menu-list">
-      <li><a>Payments</a></li>
-      <li><a>Transfers</a></li>
-      <li><a>Balance</a></li>
-    </ul>
+    <div class="field" id="flow">
+      <label class="label">Enter your flow in litres per minute</label>
+      <div class="control is-flex is-align-items-center" id="flow">
+        <!-- <input type="number" v-model="localFlow" :min="flowRange.min" :max="flowRange.max"> -->
+        <NumberInput v-model="localFlow" :min="flowRange.min" :max="flowRange.max" @changeCount="updateFlow" :value="flow"/>
+        <span class="is-right ml-1">Lpm</span>
+      </div>
+    </div>
+    <!-- ./field -->
+    <div class="field" id="pressure">
+      <label class="label">Select your working pressure in kilopascals</label>
+      <div class="control has-icons-right is-flex is-align-items-center">
+        <div class="select">
+          <select v-model="localPressure">
+            
+            <option v-for="(pressure, index) in pressureRange" :key="index" >{{ pressure }}</option>
+          </select>
+        </div>
+
+          <span class="is-right ml-1">kpa</span>
+      </div>
+    </div>
+    <!-- /.field -->
+    <div class="field">
+      <div class="control">
+        <button class="button is-link" @click="$emit('set', localFlow, localPressure)">Set pressure and flow</button>
+      </div>
+
+    </div>
   </aside>
 </transition>
 </template>
 
 <script>
+  import NumberInput from './NumberInput.vue';
   export default {
+
+    
+    
+    components: {
+      NumberInput
+    },
+    props: {
+      flow: {
+        type: Number
+      },
+      pressureRange: {
+        type: Array
+      },
+      flowRange: {
+        type: Object
+      }
+    },
 
     data() {
       return {
         isActive: false,
+          localFlow: this.flow,
+        localPressure: this.pressureRange[0]
       }
     },
+
+    methods: {
+      updateFlow(count) {
+        this.localFlow = count;
+      }
+    }
+
+
   }
 </script>
 
