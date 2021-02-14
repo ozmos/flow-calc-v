@@ -1,5 +1,9 @@
 <template>
-
+<!-- <transition
+  name="slideInOnly"
+  enter-active-class="slideInDown"
+  leave-active-class="zoomUp"
+> -->
   <article class="card-content has-background-light" id="flow-settings">
 
     <div class="field" id="flow">
@@ -32,6 +36,7 @@
 
     </div>
   </article>
+<!-- </transition> -->
 </template>
 
 <script>
@@ -70,7 +75,12 @@
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="scss" scoped>
+@import "./../assets/animation-variables.scss";
+#flow-settings {
 
+      animation-duration: 0.3s;
+     
+}
 
 </style>

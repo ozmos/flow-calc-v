@@ -1,10 +1,10 @@
 <template>
   
-    <header id="calc-header" class="card-content has-background-primary">
-      <h1 class="title">
+    <header id="calc-header" class="card-content has-background-primary p-3">
+      <h1 class="title is-size-5">
         {{ title }}
       </h1>
-      <p class="subtitle" >
+      <p class="subtitle is-size-7" >
         {{ subtitle }}
       </p>
      <!-- Add dropdown or modal for app desription -->

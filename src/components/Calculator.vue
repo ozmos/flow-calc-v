@@ -4,17 +4,13 @@
     <CalcHeader :title="title" :subtitle="subtitle" />
     <FlowSettings v-show="!flowIsSet" :pressureRange="pressureRange" :flowRange="flowRange" :pressure="pressure" :flow="flow" @set="setFlow" />
     <DisplaySettings :flow="flow" :pressure="pressure" v-show="flowIsSet" @reset="showFlowSettings" />
+    
     <NozzleDisplay :nozzles="currentNozzleData" :flow="flow" v-show="flowIsSet"/>
-    <footer class="card-footer p-2">
-      <a href="#" class="button is-danger card-footer-item" v-show="flowIsSet" @click="resetInputs">reset</a>
-      <a href="#" class="card-footer-item"></a>
-      <a href="#" class="card-footer-item"></a>
-    </footer>
+   
   </div>
 </template>
 
 <script>
-  import { bus } from '../main';
   import nozzleData from '@/data/nozzleData.js';
   import CalcHeader from './CalcHeader.vue';
   import FlowSettings from './FlowSettings.vue';
@@ -61,9 +57,7 @@
         this.flowIsSet = false;
       },
 
-      resetInputs() {
-        bus.$emit('reset');
-      }
+      
     },
 
   }

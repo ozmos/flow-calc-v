@@ -1,7 +1,7 @@
 <template>
 <div class="number-input is-flex is-flex-wrap-nowrap is-align-items-center is-justify-content-center">
   <span class="plus-minus button has-text-weight-bold is-success" @click="adjust(-1)">-</span>
-  <input type="number" v-model="count" :min="min" :max="max" class="has-text-centered">
+    <input type="number" v-model="count" :min="min" :max="max" class="has-text-centered">
   <span class="plus-minus button has-text-weight-bold is-success" @click="adjust(1)">+</span>
 </div>
 </template>
@@ -61,7 +61,20 @@
       border-bottom: 1px solid $grey-lighter;
     }
 
+    input[type=number]::-webkit-inner-spin-button, 
+    input[type=number]::-webkit-outer-spin-button { 
+      -webkit-appearance: none; 
+      margin: 0; 
+
   }
+    .button.is-success:active {
+  background-color: #3a9f5d;
+  transform: translateY(2px);
+}
+
+  
+  }
+
 
 
   
