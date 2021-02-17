@@ -1,52 +1,35 @@
 <template>
 <transition name="slideLeft">
-  <aside id="sidebar" class="menu is-overlay has-background-white is-active">
-    <span class="is-size-3 is-pulled-right m-2" aria-label="close" @click="$emit('toggle')">&#10005;</span>
+  <aside id="sidebar" class="is-overlay has-background-white is-active box">
+    <!-- <span class="is-size-3 is-pulled-right has-line-height-1" aria-label="close" @click="$emit('toggle')">&#10005;</span> -->
+    <article class="block">
+    <button class="delete is-large is-pulled-right" @click="$emit('toggle')"></button>
+      <p class="menu-label">Flow Settings</p>
+
+    <FlowSettings :pressureRange="pressureRange" :flowRange="flowRange" :pressure="pressure" :flow="flow" />
+    </article>
+    <article class="block">
+
     <p class="menu-label">
-      General
+      Sprinkler info
     </p>
-    <div class="field" id="flow">
-      <label class="label">Enter your flow in litres per minute</label>
-      <div class="control is-flex is-align-items-center" id="flow">
-        <!-- <input type="number" v-model="localFlow" :min="flowRange.min" :max="flowRange.max"> -->
-        <NumberInput v-model="localFlow" :min="flowRange.min" :max="flowRange.max" @changeCount="updateFlow" :value="flow"/>
-        <span class="is-right ml-1">Lpm</span>
-      </div>
-    </div>
-    <!-- ./field -->
-    <div class="field" id="pressure">
-      <label class="label">Select your working pressure in kilopascals</label>
-      <div class="control has-icons-right is-flex is-align-items-center">
-        <div class="select">
-          <select v-model="localPressure">
-            
-            <option v-for="(pressure, index) in pressureRange" :key="index" >{{ pressure }}</option>
-          </select>
-        </div>
+    <ul>
+      <li v-show="info.name"><a href="#">Name: {{ info.name }}</a></li>
+      <li v-show="info.description"><a href="#">Description: {{ info.description }}</a></li>
+    </ul>
+    </article>
 
-          <span class="is-right ml-1">kpa</span>
-      </div>
-    </div>
-    <!-- /.field -->
-    <div class="field">
-      <div class="control">
-        <button class="button is-link" @click="$emit('set', localFlow, localPressure)">Set pressure and flow</button>
-      </div>
-
-    </div>
   </aside>
 </transition>
 </template>
 
 <script>
-  import NumberInput from './NumberInput.vue';
+import FlowSettings from './FlowSettings.vue';
   export default {
-
-    
-    
     components: {
-      NumberInput
+      FlowSettings
     },
+
     props: {
       flow: {
         type: Number
@@ -56,22 +39,17 @@
       },
       flowRange: {
         type: Object
-      }
+      },
+      pressure: Number,
+      info: Object
     },
 
     data() {
       return {
         isActive: false,
-          localFlow: this.flow,
-        localPressure: this.pressureRange[0]
       }
     },
 
-    methods: {
-      updateFlow(count) {
-        this.localFlow = count;
-      }
-    }
 
 
   }
@@ -81,7 +59,14 @@
 <style lang="scss" scoped>
 @import "./../assets/animation-variables.scss";
   #sidebar {
+    max-width: 90%;
     z-index: 9999;
     animation-duration: $animate-duration;
+    .has-line-height-1 {
+      line-height: 1
+    }
+    // .message {
+    //   border-radius: 0px;
+    // }
   }
 </style>

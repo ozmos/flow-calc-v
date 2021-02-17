@@ -14,27 +14,19 @@
       </div>
       |
       <div class="level-item">
-        <button class="button is-small is-info is-uppercase has-text-weight-bold" @click="toggleMenu">info</button>
+        <button class="button is-small is-info is-uppercase has-text-weight-bold" @click="$emit('toggle')">settings</button>
       </div>
-      <div class="level-item">
-        <button class="button is-small is-warning is-uppercase has-text-weight-bold" @click="$emit('reset')">
-          change flow
-        </button>
-      </div>
+      
     </div>
     <!-- /.level -->
-    <sidebar v-show="showMenu" @toggle="toggleMenu"/>
+    
   </div>
   </transition>
 </template>
 
 <script>
-  import Sidebar from './Sidebar.vue';
+  
   export default {
-    components: {
-      Sidebar
-    },
-    // name: 'DisplaySettings',
     props: {
       pressure: {
         type: Number
@@ -46,15 +38,10 @@
 
     data() {
       return {
-        showMenu : false
+        //
       }
     },
 
-    methods: {
-      toggleMenu() {
-        this.showMenu = !this.showMenu;
-      }
-    },
 
 
   }

@@ -4,10 +4,10 @@
   enter-active-class="slideInDown"
   leave-active-class="zoomUp"
 > -->
-  <article class="card-content has-background-light" id="flow-settings">
-
+  
+<div>
     <div class="field" id="flow">
-      <label class="label">Enter your flow in litres per minute</label>
+      <label class="label">Flow rate</label>
       <div class="control is-flex is-align-items-center" id="flow">
         <!-- <input type="number" v-model="localFlow" :min="flowRange.min" :max="flowRange.max"> -->
         <NumberInput v-model="localFlow" :min="flowRange.min" :max="flowRange.max" @changeCount="updateFlow" :value="flow"/>
@@ -16,7 +16,7 @@
     </div>
     <!-- ./field -->
     <div class="field" id="pressure">
-      <label class="label">Select your working pressure in kilopascals</label>
+      <label class="label">Pressure</label>
       <div class="control has-icons-right is-flex is-align-items-center">
         <div class="select">
           <select v-model="localPressure">
@@ -31,15 +31,16 @@
     <!-- /.field -->
     <div class="field">
       <div class="control">
-        <button class="button is-link" @click="$emit('set', localFlow, localPressure)">Set pressure and flow</button>
+        <button class="button is-link" @click="set">Set</button>
       </div>
 
     </div>
-  </article>
+  </div>
 <!-- </transition> -->
 </template>
 
 <script>
+import { bus } from '../main';
   import NumberInput from './NumberInput.vue';
   export default {
     components: {
@@ -67,6 +68,9 @@
     methods: {
       updateFlow(count) {
         this.localFlow = count;
+      },
+      set() {
+        bus.$emit('set', this.localFlow, this.localPressure)
       }
     }
 

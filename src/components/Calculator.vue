@@ -2,8 +2,11 @@
 
   <div class="card">
     <CalcHeader :title="title" :subtitle="subtitle" />
-    <FlowSettings v-show="!flowIsSet" :pressureRange="pressureRange" :flowRange="flowRange" :pressure="pressure" :flow="flow" @set="setFlow" />
-    <DisplaySettings :flow="flow" :pressure="pressure" v-show="flowIsSet" @reset="showFlowSettings" />
+    <article class="card-content has-background-light" id="flow-settings" v-show="!flowIsSet">
+    <FlowSettings :pressureRange="pressureRange" :flowRange="flowRange" :pressure="pressure" :flow="flow" />
+    </article>
+    <DisplaySettings :flow="flow" :pressure="pressure" v-show="flowIsSet" @toggle="toggleMenu"/>
+    <Sidebar v-show="showMenu" @toggle="toggleMenu" :pressureRange="pressureRange" :flowRange="flowRange" :pressure="pressure" :flow="flow" :info="{name: 'Rainbird 3500 series', description: 'gear drive sprinkler'}"/>
     
     <NozzleDisplay :nozzles="currentNozzleData" :flow="flow" v-show="flowIsSet"/>
    
@@ -11,15 +14,17 @@
 </template>
 
 <script>
+import {bus} from '../main';
   import nozzleData from '@/data/nozzleData.js';
   import CalcHeader from './CalcHeader.vue';
   import FlowSettings from './FlowSettings.vue';
   import DisplaySettings from './DisplaySettings.vue';
+   import Sidebar from './Sidebar.vue';
   import NozzleDisplay from './NozzleDisplay.vue';
 
   export default {
     components: {
-      CalcHeader, FlowSettings, DisplaySettings, NozzleDisplay
+      CalcHeader, FlowSettings, DisplaySettings, NozzleDisplay, Sidebar
     },
     data() {
       return {
@@ -27,21 +32,23 @@
         subtitle: "You pocket irrigation buddy",
 
         flowIsSet: false,
-        pressure: 0,
         flow: 20,
+        pressure: 0,
         flowRange: {
           min: 2,
           max: null
         },
         nozzles: nozzleData,
         currentNozzleData: {},
+        showMenu : false
       }
     },
 
     computed: {
       pressureRange() {
         return Object.keys(this.nozzles);
-      }
+      },
+      
     },
 
     methods: {
@@ -57,7 +64,15 @@
         this.flowIsSet = false;
       },
 
-      
+      toggleMenu() {
+        this.showMenu = !this.showMenu;
+      }
+    },
+
+     created() {
+      bus.$on('set', (flow, pressure) => {
+        this.setFlow(flow, pressure);
+      })
     },
 
   }
